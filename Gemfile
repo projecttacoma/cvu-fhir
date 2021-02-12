@@ -8,6 +8,8 @@ gem 'rails', '~> 5.2.2'
 gem 'delayed_job_mongoid', '~> 2.3.0'
 gem 'mongoid', '~> 6.4.2'
 
+gem 'webpacker', '~> 3.5.0'
+
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson', '4.5.0'
 gem 'bson_ext'
@@ -143,3 +145,5 @@ group :production do
   gem 'newrelic_rpm'
   gem 'unicorn-rails'
 end
+
+gem "react-rails"
