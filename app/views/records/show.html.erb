@@ -83,6 +83,7 @@
       <% end %>
       </ul>
     </div>
-    <%= react_component("HelloWorld", { greeting: "Hello from react-rails." }) %>
+    <% patient_resource = @record.patient.entry.find { |e| e.resource.resourceType == 'Patient' }.resource %>
+    <%= react_component("HelloWorld", { data: patient_resource, patient: patient_resource, errors: patient_resource.validate }) %>
   </div>
 </div>
