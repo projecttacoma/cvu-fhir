@@ -14,32 +14,76 @@ import {
   ImmunizationsVisualizer,
   DocumentReferencesVisualizer
 } from 'fhir-visualizers';
+import ReactModal from "react-modal";
 
 class PatientView extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.showDetails = this.showDetails.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+
+    this.state = {
+      entryDetail: null,
+      entryErrors: null,
+      showModal: false
+    };
+    ReactModal.setAppElement(document.body);
+  }
+
+  showDetails(entry){
+    this.setState({
+      entryDetail: entry,
+      entryErrors: this.props.errors[entry.id],
+      showModal: true
+    });
+  }
+
+  handleCloseModal () {
+    this.setState({ showModal: false });
+  }
+
   render () {
   	let data = { /* ... */ };
     console.log(this.props.entry.filter(e => e.resource.resourceType == 'Encounter').map(e => e.resource))
     // TODO: check report is observation? and add document references?
     return (
-      <React.Fragment>
+      <React.Fragment><div className="patient-view">
         <div><PatientVisualizer patient={this.props.patient} /></div>
-        <div><EncountersVisualizer rows={this.props.entry.filter(e => e.resource.resourceType == 'Encounter').map(e => e.resource)} /></div>
-        <div><ConditionsVisualizer rows={this.props.entry.filter(e => e.resource.resourceType == 'Condition').map(e => e.resource)} /></div>
-        <div><ObservationsVisualizer rows={this.props.entry.filter(e => e.resource.resourceType == 'Observation').map(e => e.resource)} /></div>
-        <div><MedicationsVisualizer rows={this.props.entry.filter(e => e.resource.resourceType == 'Medication').map(e => e.resource)} /></div>
-        <div><AllergiesVisualizer rows={this.props.entry.filter(e => e.resource.resourceType == 'Allergy').map(e => e.resource)} /></div>
-        <div><ReportsVisualizer rows={this.props.entry.filter(e => e.resource.resourceType == 'Observation').map(e => e.resource)} /></div>
-        <div><CarePlansVisualizer rows={this.props.entry.filter(e => e.resource.resourceType == 'CarePlan').map(e => e.resource)} /></div>
-        <div><ProceduresVisualizer rows={this.props.entry.filter(e => e.resource.resourceType == 'Procedure').map(e => e.resource)} /></div>
-        <div><ImmunizationsVisualizer rows={this.props.entry.filter(e => e.resource.resourceType == 'Immunization').map(e => e.resource)} /></div>
-        <div>FHIR Resource: <ObjectInspector data={ this.props.data } /></div>
-        <div>Errors: <ObjectInspector data={ this.props.errors } /></div>
-      </React.Fragment>
+        <div>Patient Errors: <ObjectInspector data={ this.props.errors[this.props.patient.id] } /></div>
+
+        <div><EncountersVisualizer onRowClick={this.showDetails} rows={this.props.entry.filter(e => e.resource.resourceType == 'Encounter').map(e => e.resource)} /></div>
+        <div><ConditionsVisualizer onRowClick={this.showDetails} rows={this.props.entry.filter(e => e.resource.resourceType == 'Condition').map(e => e.resource)} /></div>
+        <div><ObservationsVisualizer onRowClick={this.showDetails} rows={this.props.entry.filter(e => e.resource.resourceType == 'Observation').map(e => e.resource)} /></div>
+        <div><MedicationsVisualizer onRowClick={this.showDetails} rows={this.props.entry.filter(e => e.resource.resourceType == 'Medication').map(e => e.resource)} /></div>
+        <div><AllergiesVisualizer onRowClick={this.showDetails} rows={this.props.entry.filter(e => e.resource.resourceType == 'Allergy').map(e => e.resource)} /></div>
+        <div><ReportsVisualizer onRowClick={this.showDetails} rows={this.props.entry.filter(e => e.resource.resourceType == 'Observation').map(e => e.resource)} /></div>
+        <div><CarePlansVisualizer onRowClick={this.showDetails} rows={this.props.entry.filter(e => e.resource.resourceType == 'CarePlan').map(e => e.resource)} /></div>
+        <div><ProceduresVisualizer onRowClick={this.showDetails} rows={this.props.entry.filter(e => e.resource.resourceType == 'Procedure').map(e => e.resource)} /></div>
+        <div><ImmunizationsVisualizer onRowClick={this.showDetails} rows={this.props.entry.filter(e => e.resource.resourceType == 'Immunization').map(e => e.resource)} /></div>
+
+        <ReactModal
+           isOpen={this.state.showModal}
+           contentLabel="Entry details modal"
+           style={{
+            content: {
+              width: '50%',
+              height: '50%',
+              margin: 'auto'
+            }
+          }}
+        >
+          <div>Entry Detail: <ObjectInspector data={ this.state.entryDetail } /></div>
+          <br/>
+          <div>Entry Errors: <ObjectInspector data={ this.state.entryErrors } /></div>
+          <br/>
+          <button onClick={this.handleCloseModal}>Close</button>
+        </ReactModal>
+      </div></React.Fragment>
     );
   }
 }
 
 PatientView.propTypes = {
-  greeting: PropTypes.string
 };
 export default PatientView

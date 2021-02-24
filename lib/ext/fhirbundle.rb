@@ -100,6 +100,12 @@ class PatientBundle
     validation_results[hexkey_for_entry(entry)] || { errors: [], warnings: [], information: [] }
   end
 
+  def entry_id_validation_hash
+    # TODO: why are we using the hex digest which appears to be used as unique, but is trickier than id?
+    # can we just use validation results directly instead?
+    patient.entry.map {|entry| [entry.resource.id, validation_result_for_entry(entry)]}.to_h
+  end
+
   def destroy
     PatientMeasureReport.where(patient_id: id).destroy_all
     delete
