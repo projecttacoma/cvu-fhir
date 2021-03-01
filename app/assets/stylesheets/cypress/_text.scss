@@ -91,4 +91,10 @@ main:focus { outline: none; }
   .health-record__header {
     color: $brand-primary;
   }
+  .row-error {
+    border: 2px solid $brand-danger;
+  }
+  .row-warning {
+    border: 2px solid $brand-warning;
+  }
 }
