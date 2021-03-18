@@ -81,7 +81,13 @@ class PatientBundle
     patient.entry.each do |entry|
       resource = entry.resource
       profile_url = resource&.meta&.profile&.first
-      validation_results[hexkey_for_entry(entry)] = validator.validate(resource, profile_url)
+      result = validator.validate(resource, profile_url)
+      key = hexkey_for_entry(entry)
+      validation_results[key] = result
+      next if result[:errors].empty?
+
+      validation_results[key]['entry'] = entry.to_json
+      validation_results[key]['resourceType'] = resource.resourceType
     end
     save
   end

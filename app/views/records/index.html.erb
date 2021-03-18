@@ -1,6 +1,9 @@
 <%# add patients option #%>
 <% if @vendor %>
   <%= button_to "+ Import Patients", new_vendor_record_path(@vendor.id), :method => :get, :params => {default: @bundle}, :class => "btn btn-primary pull-right", :disabled => @bundle.nil? %>
+  <%= button_to report_vendor_records_path(@vendor.id), :method => :get, :class => "btn btn-default" do %>
+    <%= icon('fas fa-fw', 'download', :"aria-hidden" => true) %> Download Report
+  <% end %>
   <h1><%= @vendor.name %> Patient List</h1>
   <div class="vendor-upload-jobs">
     <%= render 'vendor_upload_jobs', :vendor => @vendor %>

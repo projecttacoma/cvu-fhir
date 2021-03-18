@@ -110,13 +110,23 @@ class VendorsRecordsControllerTest < ActionController::TestCase
         assert_redirected_to({ controller: 'records', action: 'index', bundle_id: @bundle2.id }, 'response should redirect to index')
 
         # use vendor id from redirect_to_url "http://test.host/vendors/#{id}/records"
-        get :index, params: { vendor_id: redirect_to_url.split('/')[-2], bundle_id: @bundle2.id }
+        vendor_id = redirect_to_url.split('/')[-2]
+        get :index, params: { vendor_id: vendor_id, bundle_id: @bundle2.id }
         @vendor.reload
         vendor_patient = @vendor.fhir_patient_bundles.first
         patient_entry = vendor_patient.patient.entry.find { |e| e.resource.resourceType == 'Patient' }
         validation_results = vendor_patient.validation_result_for_entry(patient_entry)
 
         assert_equal 2, validation_results.errors.size, 'Patient entry should have 2 errors'
+
+        testfile = Tempfile.new(['report', '.zip'])
+        get :report, params: { vendor_id: vendor_id }
+        testfile.write response.body
+
+        Zip::File.open(testfile.path, Zip::File::CREATE) do |zip|
+          report_html = Nokogiri::HTML.parse(zip.read('product_report.html'))
+          assert report_html.at("button:contains('Louise Jones (1 Resource with Errors)')"), 'calculations missing for upload'
+        end
       end
     end
   end

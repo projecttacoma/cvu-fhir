@@ -1,0 +1,80 @@
+<div class="product-report">
+<section>
+  <h1>Validation Summary (Errors in <%= @patients.size %> files)</h1>
+  <button id="show-all">Show all</button>
+  <button id="hide-all">Hide all</button>
+  <% @patients.each do |fhir_patient|
+      validation_results = fhir_patient.validation_results.values.select { |vr| vr['errors'].present? } %>
+  <div>
+    <% error_string = if validation_results.size > 1
+                        "(#{validation_results.size} Resources with Errors)"
+                      else
+                        "(1 Resource with Errors)"
+                      end %>
+    <button type="button" class="collapsible"><%= full_name(fhir_patient) %> <%= error_string %></button>
+    <div class="content" style="display: block;">
+    <% patient = fhir_patient.patient %>
+    <% validation_results.each do |validation_result| %>
+      <% next if validation_result['errors'].empty? %>
+      <div class="row">
+        <div class="col-sm-4">
+          <ul>
+            <li>Errors in <%= validation_result['resourceType'] %> Resource</li>
+            <ul>
+              <% validation_result['errors'].each do |error| %>
+                <li class="word-wrap"><%= error %></li>
+              <% end %>
+            </ul>
+          </ul>
+        </div>
+        <div class="col-sm-8">
+          <pre class="pre-code"><%= validation_result['entry'] %></pre>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+  <% end %>
+</section>
+</div>
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var cont = document.getElementsByClassName("content");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("inactive");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+
+var hide = document.getElementById("hide-all");
+  hide.addEventListener("click", function() {
+  for (i = 0; i < cont.length; i++) {
+    cont[i].style.display = "none";
+  }
+  for (i = 0; i < coll.length; i++) {
+    if (coll[i].classList.contains('inactive')) {
+      coll[i].classList.toggle('inactive')
+    }
+  }
+});
+
+var show = document.getElementById("show-all");
+  show.addEventListener("click", function() {
+  for (i = 0; i < cont.length; i++) {
+    cont[i].style.display = "block";
+  }
+  for (i = 0; i < coll.length; i++) {
+    if (!coll[i].classList.contains('inactive')) {
+      coll[i].classList.toggle('inactive')
+    }
+  }
+});
+</script>
