@@ -73,6 +73,10 @@ class PatientBundle
     patient_resource.gender
   end
 
+  def validation_errors?
+    validation_results.values.any? { |vr| vr['errors'].present? }
+  end
+
   def validate(validator)
     patient.entry.each do |entry|
       resource = entry.resource
