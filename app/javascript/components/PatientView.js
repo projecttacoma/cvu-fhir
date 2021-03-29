@@ -65,8 +65,6 @@ class PatientView extends React.Component {
 
   render () {
   	let data = { /* ... */ };
-    console.log(this.props.entry.filter(e => e.resource.resourceType == 'Encounter').map(e => e.resource))
-    // TODO: check report is observation? and add document references?
     return (
       <React.Fragment><div className="patient-view">
         <div><PatientVisualizer patient={this.props.patient} /></div>
