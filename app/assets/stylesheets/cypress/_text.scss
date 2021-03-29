@@ -2,6 +2,10 @@ a.label {
   color: $brand-white;
 }
 
+li.word-wrap {
+  word-wrap: break-word;
+}
+
 .summary-title {
   line-height: normal;
   margin-top: 10px;

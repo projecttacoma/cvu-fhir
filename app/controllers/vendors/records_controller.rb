@@ -41,6 +41,13 @@ module Vendors
       end
     end
 
+    def report
+      @patients = @vendor.fhir_patient_bundles.sort_by { |patient| full_name(patient) }.select(&:validation_errors?)
+      report_content = render_to_string layout: 'report'
+      file = Cypress::CreateDownloadZip.create_validation_report_zip(@vendor, report_content: report_content)
+      send_data file.read, type: 'application/zip', disposition: 'attachment', filename: "#{@vendor.name}_#{@vendor.id}_report.zip".tr(' ', '_')
+    end
+
     def patient_analysis
       @analysis = @vendor.vendor_patient_analysis[@bundle.id.to_s]
       add_breadcrumb 'Analysis', :patient_analysis_vendor_records_path
