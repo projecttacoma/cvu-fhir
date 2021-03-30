@@ -78,3 +78,10 @@ main:focus { outline: none; }
 .valueset-listitem {
   padding: .5em;
 }
+
+.row-error {
+  border: 2px solid $brand-danger;
+}
+.row-warning {
+  border: 2px solid $brand-warning;
+}
