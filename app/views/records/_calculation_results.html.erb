@@ -1,9 +1,10 @@
 <% patients.sort_by { |patient| full_name(patient) }.each do |r| %>
+<% row_class = r.validation_errors? ? 'row-error' : ( r.validation_warnings? ? 'row-warning' : '') %>
   <% if measure %>
     <% result_values.select { |rv| rv.patient_id == r.id }&.each do |result| %>
       <% grouped_results = group_calculation_results(result.measure_report) %>
-      <% grouped_results.each_with_index do |grouped_result, index| %>    
-      <tr>
+      <% grouped_results.each_with_index do |grouped_result, index| %>
+      <tr class=<%= row_class %>>
         <% if index == 0 %>
           <% if @vendor %>
               <td>
@@ -46,7 +47,7 @@
       <% end %>
     <% end %>
   <% else %>
-      <tr>
+      <tr class=<%= row_class %>>
         <% if @vendor %>
             <td>
               <%= bootstrap_form_tag url: vendor_records_path(@vendor), html: {class: "delete_vendor_patients_form"} do |f| %>

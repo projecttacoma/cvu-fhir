@@ -77,6 +77,10 @@ class PatientBundle
     validation_results.values.any? { |vr| vr['errors'].present? }
   end
 
+  def validation_warnings?
+    validation_results.values.any? { |vr| vr['warnings'].present? }
+  end
+
   def validate(validator)
     patient.entry.each do |entry|
       resource = entry.resource
