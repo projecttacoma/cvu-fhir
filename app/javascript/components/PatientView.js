@@ -74,7 +74,7 @@ class PatientView extends React.Component {
         <div><ConditionsVisualizer onRowClick={this.showDetails} dynamicRowClass={this.classForEntry} rows={this.props.entry.filter(e => e.resource.resourceType == 'Condition').map(e => e.resource)} /></div>
         <div><ObservationsVisualizer onRowClick={this.showDetails} dynamicRowClass={this.classForEntry} rows={this.props.entry.filter(e => e.resource.resourceType == 'Observation').map(e => e.resource)} /></div>
         <div><MedicationsVisualizer onRowClick={this.showDetails} dynamicRowClass={this.classForEntry} rows={this.props.entry.filter(e => e.resource.resourceType == 'Medication').map(e => e.resource)} /></div>
-        <div><AllergiesVisualizer onRowClick={this.showDetails} dynamicRowClass={this.classForEntry} rows={this.props.entry.filter(e => e.resource.resourceType == 'Allergy').map(e => e.resource)} /></div>
+        <div><AllergiesVisualizer onRowClick={this.showDetails} dynamicRowClass={this.classForEntry} rows={this.props.entry.filter(e => e.resource.resourceType == 'AllergyIntolerance').map(e => e.resource)} /></div>
         <div><ReportsVisualizer onRowClick={this.showDetails} dynamicRowClass={this.classForEntry} rows={this.props.entry.filter(e => e.resource.resourceType == 'Observation').map(e => e.resource)} /></div>
         <div><CarePlansVisualizer onRowClick={this.showDetails} dynamicRowClass={this.classForEntry} rows={this.props.entry.filter(e => e.resource.resourceType == 'CarePlan').map(e => e.resource)} /></div>
         <div><ProceduresVisualizer onRowClick={this.showDetails} dynamicRowClass={this.classForEntry} rows={this.props.entry.filter(e => e.resource.resourceType == 'Procedure').map(e => e.resource)} /></div>
