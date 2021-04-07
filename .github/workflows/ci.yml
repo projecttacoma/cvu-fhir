@@ -96,7 +96,7 @@ jobs:
         cp ./.travis/mongoid.yml ./config/mongoid.yml
     - name: Run cucumber
       run: |
-        bundle exec cucumber assets:precompile;
+        bundle exec cucumber;
   unit-test:
     strategy:
       fail-fast: false
