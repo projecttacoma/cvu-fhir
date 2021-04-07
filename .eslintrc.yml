@@ -1,7 +1,18 @@
 env:
   browser: true
   jquery: true
-extends: 'eslint:recommended'
+  es6: true
+extends:
+  - 'eslint:recommended'
+  - 'plugin:react/recommended'
+parser: babel-eslint
+parserOptions:
+  sourceType: module
+  ecmaVersion: 6
+plugins:
+  - react
+  - import
+  - react-hooks
 rules:
   accessor-pairs: error
   array-bracket-spacing:
@@ -56,7 +67,7 @@ rules:
   max-len: 'off'
   max-nested-callbacks: error
   max-params: error
-  max-statements: 
+  max-statements:
     - error
     - 20
   max-statements-per-line: 'off'

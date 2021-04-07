@@ -64,7 +64,6 @@ class PatientView extends React.Component {
   }
 
   render () {
-  	let data = { /* ... */ };
     return (
       <React.Fragment><div className="patient-view">
         <div><PatientVisualizer patient={this.props.patient} /></div>
@@ -88,7 +87,7 @@ class PatientView extends React.Component {
         <div><MedicationRequestVisualizer onRowClick={this.showDetails} dynamicRowClass={this.classForEntry} rows={this.props.entry.filter(e => e.resource.resourceType == 'MedicationRequest').map(e => e.resource)} /></div>
         <div><MedicationAdministrationVisualizer onRowClick={this.showDetails} dynamicRowClass={this.classForEntry} rows={this.props.entry.filter(e => e.resource.resourceType == 'MedicationAdministration').map(e => e.resource)} /></div>
         <div><MedicationDispenseVisualizer onRowClick={this.showDetails} dynamicRowClass={this.classForEntry} rows={this.props.entry.filter(e => e.resource.resourceType == 'MedicationDispense').map(e => e.resource)} /></div>
-        
+
         <ReactModal
            isOpen={this.state.showModal}
            contentLabel="Entry details modal"

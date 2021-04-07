@@ -146,4 +146,4 @@ group :production do
   gem 'unicorn-rails'
 end
 
-gem "react-rails"
+gem 'react-rails'
