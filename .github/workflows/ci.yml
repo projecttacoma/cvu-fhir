@@ -86,6 +86,7 @@ jobs:
         nvm install 10.16
         nvm use stable
         bundle install
+        yarn install --ignore-engines
         git clone -b master https://github.com/projecttacoma/fqm-execution-service.git /tmp/fqm-execution-service
         yarn --cwd /tmp/fqm-execution-service install --only=production
         yarn --cwd /tmp/fqm-execution-service start &
