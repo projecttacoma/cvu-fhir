@@ -96,6 +96,7 @@ jobs:
         cp ./.travis/mongoid.yml ./config/mongoid.yml
     - name: Run cucumber
       run: |
+      	bundle exec rake webpacker:compile
         bundle exec cucumber;
   unit-test:
     strategy:
@@ -130,4 +131,5 @@ jobs:
     - name: Run Rake test
       run: |
         RUBYOPT="-W0"
+        bundle exec rake webpacker:compile
         bundle exec rake test:units test:controllers test:helpers;
