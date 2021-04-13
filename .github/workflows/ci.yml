@@ -96,7 +96,6 @@ jobs:
         cp ./.travis/mongoid.yml ./config/mongoid.yml
     - name: Run cucumber
       run: |
-      	bundle exec rake webpacker:compile
         bundle exec cucumber;
   unit-test:
     strategy:
@@ -120,6 +119,7 @@ jobs:
         nvm install 10.16
         nvm use stable
         bundle install
+        yarn install --ignore-engines
         git clone -b master https://github.com/projecttacoma/fqm-execution-service.git /tmp/fqm-execution-service
         yarn --cwd /tmp/fqm-execution-service install --only=production
         yarn --cwd /tmp/fqm-execution-service start &
@@ -131,5 +131,4 @@ jobs:
     - name: Run Rake test
       run: |
         RUBYOPT="-W0"
-        bundle exec rake webpacker:compile
         bundle exec rake test:units test:controllers test:helpers;
