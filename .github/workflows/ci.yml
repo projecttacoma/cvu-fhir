@@ -58,6 +58,7 @@ jobs:
         nvm install 10.16
         nvm use stable
         bundle install
+        yarn install --ignore-engines
     - name: Run overcommit
       run: |
         git config --global user.email "travis@travis.ci"
