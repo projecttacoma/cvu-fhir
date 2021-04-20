@@ -2,6 +2,7 @@ env:
   browser: true
   jquery: true
   es6: true
+  node: true
 extends:
   - 'eslint:recommended'
   - 'plugin:react/recommended'
@@ -100,7 +101,7 @@ rules:
   no-inner-declarations:
     - error
     - functions
-  no-invalid-this: error
+  no-invalid-this: off
   no-iterator: error
   no-label-var: error
   no-labels: error
