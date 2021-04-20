@@ -14,6 +14,8 @@ plugins:
   - react
   - import
   - react-hooks
+ignorePatterns:
+  - 'config/webpack/*.js'
 rules:
   accessor-pairs: error
   array-bracket-spacing:
