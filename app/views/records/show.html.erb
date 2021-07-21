@@ -84,6 +84,6 @@
       </ul>
     </div>
     <% patient_resource = @record.patient.entry.find { |e| e.resource.resourceType == 'Patient' }.resource %>
-    <%= react_component("PatientView", { data: patient_resource, patient: patient_resource, entry: @relevant_entries, errors: @record.entry_id_validation_hash }) %>
+    <%= react_component("PatientView", { data: patient_resource, patient: patient_resource, entry: @relevant_entries, errors: @record.entry_id_validation_hash.transform_values{|v| v.slice('errors', 'warnings', 'information')} }) %>
   </div>
 </div>

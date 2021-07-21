@@ -113,7 +113,7 @@ class PatientView extends React.Component {
 }
 
 PatientView.propTypes = {
-  errors: PropTypes.array,
+  errors: PropTypes.object,
   patient: PropTypes.object,
   entry: PropTypes.array
 };
