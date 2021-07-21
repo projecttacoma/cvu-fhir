@@ -8,6 +8,8 @@ gem 'rails', '~> 5.2.2'
 gem 'delayed_job_mongoid', '~> 2.3.0'
 gem 'mongoid', '~> 6.4.2'
 
+gem 'webpacker', '~> 3.5.0'
+
 # gem 'mongoid', '~> 4.0.2'
 gem 'bson', '4.5.0'
 gem 'bson_ext'
@@ -29,7 +31,7 @@ gem 'sass-rails', '~> 5.0.4'
 # Dependencies for CMS Assets Framework
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'font-awesome-sass', '~> 5.0.13'
-gem 'jquery-rails', '~> 4.3.3'
+gem 'jquery-rails', '~> 4.4.0'
 gem 'jquery-ui-rails', '~> 6.0.1'
 
 # Add pagination support
@@ -143,3 +145,5 @@ group :production do
   gem 'newrelic_rpm'
   gem 'unicorn-rails'
 end
+
+gem 'react-rails'

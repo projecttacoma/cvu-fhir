@@ -86,3 +86,9 @@ main:focus { outline: none; }
 .row-warning {
   border: 2px solid $brand-warning;
 }
+
+.patient-view {
+  .health-record__header {
+    color: $brand-primary;
+  }
+}

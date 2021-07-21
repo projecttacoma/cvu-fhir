@@ -11,6 +11,7 @@ AllCops:
     - 'lib/tasks/cucumber.rake'
     - 'lib/validators/validation.rb'
     - 'lib/validators/hl7_validator.rb'
+    - 'node_modules/**/*'
 Rails:
   Enabled: true
 Rails/FindEach: # Find_each does not work with mongoid
